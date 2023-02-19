@@ -1,4 +1,4 @@
-from typing import Mapping
+from typing import Mapping, Optional
 
 from pydantic import BaseModel
 
@@ -17,19 +17,19 @@ class Weather(BaseModel):
 
 class MainWeatherData(BaseModel):
     temp: float
-    feels_like: float
-    temp_min: float
-    temp_max: float
-    pressure: int
-    humidity: int
-    sea_level: int
-    grnd_level: int
+    feels_like: Optional[float]
+    temp_min: Optional[float]
+    temp_max: Optional[float]
+    pressure: Optional[int]
+    humidity: Optional[int]
+    sea_level: Optional[int]
+    grnd_level: Optional[int]
 
 
 class Wind(BaseModel):
     speed: float
     deg: int
-    gust: float
+    gust: Optional[float]
 
 
 class Sys(BaseModel):
