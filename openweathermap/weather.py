@@ -11,7 +11,7 @@ class Weather:
         self.url = config.url
         self.api_key = config.api_key
 
-    def __request(self, method: str, params: Mapping[str, str]):
+    def __request(self, method: str, params: Mapping[str, str]) -> str:
         response_data = requests.get(
             f"https://{self.url}/{method}",
             headers={
@@ -21,7 +21,7 @@ class Weather:
         )
         return response_data.text
 
-    def get_by_city_name(self, city_name: str):
+    def get_by_city_name(self, city_name: str) -> str:
         return self.__request(
             Method.WEATHER_BY_CITY.value,
             {
