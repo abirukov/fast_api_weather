@@ -1,17 +1,18 @@
 import requests
 
-from config import get_weather_config
-from openweathermap.methods import Method
 from typing import Mapping
 
 
 class Weather:
-    def __init__(self):
-        config = get_weather_config()
-        self.url = config.url
-        self.api_key = config.api_key
+    METHODS = {
+        "weather_by_city": "data/2.5/weather",
+    }
 
-    def __request(self, method: str, params: Mapping[str, str]) -> str:
+    def __init__(self, api_key: str):
+        self.url = "api.openweathermap.org"
+        self.api_key = api_key
+
+    def __request(self, method: str, params: Mapping[str, str]) -> dict:
         response_data = requests.get(
             f"https://{self.url}/{method}",
             headers={
@@ -19,11 +20,11 @@ class Weather:
             },
             params=params,
         )
-        return response_data.text
+        return response_data.json()
 
-    def get_by_city_name(self, city_name: str) -> str:
+    def get_by_city_name(self, city_name: str) -> dict:
         return self.__request(
-            Method.WEATHER_BY_CITY.value,
+            self.METHODS['weather_by_city'],
             {
                 "q": city_name,
                 "appid": self.api_key,
