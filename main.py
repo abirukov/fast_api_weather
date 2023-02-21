@@ -14,9 +14,9 @@ def weather_by_name(city_name: str):
     weather = Weather(weather_config.api_key).get_by_city_name(city_name)
     try:
         weather_by_city = WeatherByCity.parse_obj(weather)
-        return {
-            "city": weather_by_city.name,
-            "temperature": weather_by_city.main.temp,
-        }
     except pydantic.error_wrappers.ValidationError:
         return weather
+    return {
+        "city": weather_by_city.name,
+        "temperature": weather_by_city.main.temp,
+    }
